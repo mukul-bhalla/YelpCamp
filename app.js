@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 
 }
@@ -27,7 +27,7 @@ const reviewsRoutes = require('./Routes/reviews');
 const usersRoutes = require('./Routes/users');
 const { func } = require('joi');
 
-const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl = process.env.DB_URL;
 const store = new MongoDBStore({
     url:dbUrl,
     secret:'thisisasecret',
@@ -41,7 +41,7 @@ store.on('error',function(e){
 const sessionConfig = {
     store:store,
     name:'session',
-    secret: 'thisisasecret',
+    secret: 'mukulbhallayelpcamp',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -53,7 +53,6 @@ const sessionConfig = {
     
 };
 app.use(session(sessionConfig))
-// mongoose.connect(dbUrl)
 mongoose.connect(dbUrl)
     .then(() => {
         console.log("Mongo Connection Open !!")
